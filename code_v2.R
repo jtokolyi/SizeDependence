@@ -6,9 +6,7 @@ sm_data <- as.data.frame(read_excel("sm_data.xlsx"))
 
 sm_data$Start_date<-as.Date(paste("2019_",sm_data$Start_date,collapse=NULL),format="%Y_%m_%d")
 sm_data$Cooling_date<-as.Date(paste("2019_",sm_data$Cooling_date,collapse=NULL),format="%Y_%m_%d")
-sm_data$Regeneration_date<-as.Date(sm_data$Regeneration_date,format="%Y_%m_%d")
 sm_data$Start_time<-as.numeric(sm_data$Start_date - sm_data$Cooling_date)
-sm_data$Regeneration_time<-as.numeric(sm_data$Regeneration_date - sm_data$Cooling_date)
 sm_data$PairID <- paste(sm_data$Plate_number,
                         ifelse(sm_data$Exp_group%in%c("reduced","enlarged"), "RE", "CC"), sep="_")
 
