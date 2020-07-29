@@ -2,7 +2,7 @@ setwd("~/hidra/2019/SizeDependence/experiment/")
 
 library(readxl); library(RColorBrewer); library(lme4); library(nlme); library(multcomp)
 
-sm_data <- as.data.frame(read_excel("sm_data.xlsx"))
+sm_data <- as.data.frame(read_excel("sm_data2.xlsx"))
 
 sm_data$Start_date<-as.Date(paste("2019_",sm_data$Start_date,collapse=NULL),format="%Y_%m_%d")
 sm_data$Cooling_date<-as.Date(paste("2019_",sm_data$Cooling_date,collapse=NULL),format="%Y_%m_%d")
@@ -10,6 +10,7 @@ sm_data$Start_time<-as.numeric(sm_data$Start_date - sm_data$Cooling_date)
 sm_data$PairID <- paste(sm_data$Plate_number,
                         ifelse(sm_data$Exp_group%in%c("reduced","enlarged"), "RE", "CC"), sep="_")
 
+## Remove individual with missing data in post-area
 sm_data <- sm_data[-which(sm_data$PairID%in%unique(sm_data$PairID[which(is.na(sm_data$post_area))])),]
 
 ## Exp group modified: combining the two control groups
